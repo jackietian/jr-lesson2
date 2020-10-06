@@ -3,13 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Clock from './components/Clock';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <>
+    <Clock city='sydney'/>
+    <Clock city='Brisbane'/>
+    <Clock city='Melbourne'/>
+  </>,
   document.getElementById('root')
 );
+
+// function updateTime() {
+//   ReactDOM.render(
+//     <h1>{new Date().toLocaleTimeString()}</h1>,
+//     document.getElementById('root')
+//   )
+// }
+// setInterval(updateTime, 1000)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
