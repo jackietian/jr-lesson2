@@ -3,14 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Clock from './components/Clock';
 
 ReactDOM.render(
-  <>
-    <Clock city='sydney'/>
-    <Clock city='Brisbane'/>
-    <Clock city='Melbourne'/>
-  </>,
+  <App />,
   document.getElementById('root')
 );
 

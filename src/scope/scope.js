@@ -1,17 +1,32 @@
+
+// scope: block and functional scope
+
+// block scope: const or let
+// funcational scope: var
+
 /**
  * let is block scope
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
  */
 
-// let x = 1;
+//  var x = 1;
+// var x
+// console.log(x)
 
 // if (x === 1) {
-//   let x = 2;
+//     x = 2;
 
-//   console.log(x);
+//     console.log(x);
+//     // expected output: 2
+// } else {
+//     x = 3
+//     console.log(x)
 // }
 
-// console.log(x);
+//  x = 1;
+ 
+//  console.log(x);
+ // expected output: 1
 
 
 /**
@@ -20,10 +35,11 @@
  */
 // const number = 42;
 
+// // error handling
 // try {
 //   number = 99;
 // } catch (err) {
-//   console.log(err);
+//   console.log(err); // TypeError: Assignment to constant variable
 // }
 
 // console.log(number);
@@ -32,6 +48,11 @@
 /**
  * var is functional scope
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var
+ * 
+ * hoisting
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting
+ * 
+ * declaration will be hoisted, not initialization
  */
 
 // var x = 1;
@@ -44,6 +65,10 @@
 
 // console.log(x); // 2
 
+// An IIFE (Immediately Invoked Function Expression) 
+// (function () {
+//     console.log('-------')
+// })();
 
 
 /**
@@ -56,7 +81,7 @@
 //     console.log(`outer: ${globalVar}`);
 //     function inner() {
 //         console.log(`inner: ${outerVar}, ${globalVar}`);
-//         // has access to all variables outside, this is scope chain
+//         // inner has access to all variables outside, this is scope chain
 //     }
 //     inner()
 // }
@@ -66,49 +91,48 @@
  * =======================================
  * closure
  */
-// function createCounter() {
+// function createCounter(a) {
 //     let number = 0;
 
 //     // a,b,c...
-//     return function counter() {
+//     return function counter(b) {
+        
 //         number++;
 
 //         // has access to a, b , c
-//         return number;
+//         return number + a + b;
 //     }
 // }
 
-// const response = createCounter()
+// const response = createCounter('a')
 // console.log(response)
-// console.log(response())
+// console.log(response('b'))
 
+function makeFuncs() {
+    const funcs = [];
+    for (let i = 0; i < 3; i++) {
+        funcs[i] = function() {
+            console.log(`func ${i}: ${i}`);
+        };
+    }
+    // console.log(i)
+    // i = 3 when var
+    // i is not defined when let
+    return funcs;
+}
+const functions = makeFuncs();
 
-// const result = createCounter()
-// console.log(result())
+/**
+ * functions = [
+    * function() { console.log(`func ${i}: ${i}`)},
+    * function() { console.log(`func ${i}: ${i}`)},
+    * function() { console.log(`func ${i}: ${i}`)},
+ * ]
+ */
 
-// function makeFuncs() {
-//     const funcs = [];
-//     for (let i = 0; i < 3; i++) {
-//         funcs[i] = function() {
-//             console.log(`func ${i}: ${i}`);
-//         };
-//     }
-//     return funcs;
-// }
-// const functions = makeFuncs();
-
-// /**
-//  * functions = [
-//     * function() { console.log(`func ${i}: ${i}`)},
-//     * function() { console.log(`func ${i}: ${i}`)},
-//     * function() { console.log(`func ${i}: ${i}`)},
-//  * ]
-//  */
-
-// for (var j = 0; j < 3; j++) {
-//     functions[j](); 
-// }
-
+for (var j = 0; j < 3; j++) {
+    functions[j]();
+}
 
 /**
  * =====================
@@ -136,9 +160,28 @@ function makePistol() {
     }
 }
 
-const pistol = makePistol()
-pistol.log()
-pistol.shoot()
-pistol.log()
-pistol.shoot()
-pistol.log()
+
+// const variable = 1, '1', true, fucntion
+// const variable1 = {}
+// variable1.name = 'asdf'
+// variable1.age = 'asdf'
+
+
+// // console.log(makePistol())
+// const pistol1 = makePistol()
+// makePistol().shoot() // 5
+// makePistol().shoot() // 5
+
+// const pistol = makePistol()
+// pistol.shoot()
+// pistol.shoot()
+
+// const pistol = makePistol()
+// pistol.log()
+// pistol.shoot()
+// pistol.log()
+// pistol.shoot()
+// pistol.log()
+
+// makePistol().shoot()
+// makePistol().shoot()
